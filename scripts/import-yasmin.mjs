@@ -26,8 +26,8 @@ function extractPaths(groupHtml) {
     if (!dMatch) continue
     const style = styleMatch?.[1] ?? ''
     const fillMatch = style.match(/fill:([^;]+)/)
-    const fill = (fillMatch?.[1] ?? '').trim()
-    paths.push({ d: dMatch[1], fill })
+    const fill = (fillMatch?.[1] ?? '').trim().toLowerCase()
+    paths.push({ d: dMatch[1].trim(), fill })
   }
   return paths
 }
@@ -145,111 +145,13 @@ function boundsOf(paths) {
   return { minX, minY, maxX, maxY, width: maxX - minX, height: maxY - minY }
 }
 
-function transformD(d, scale, offsetX, offsetY) {
-  const tokens = d.replace(/,/g, ' ').trim().split(/\s+/).filter(Boolean)
-  const out = []
-  let i = 0
-  let cmd = ''
-
-  const read = () => {
-    const value = parseFloat(tokens[i])
-    i += 1
-    return value
-  }
-
-  const pushNum = (value) => {
-    const rounded = Math.round(value * 1000) / 1000
-    out.push(String(rounded))
-  }
-
-  while (i < tokens.length) {
-    const token = tokens[i]
-    if (/^[MmLlHhVvCcSsQqTtAaZz]$/.test(token)) {
-      cmd = token
-      out.push(cmd)
-      i += 1
-      if (cmd === 'Z' || cmd === 'z') continue
-    }
-
-    if (cmd === 'M' || cmd === 'L' || cmd === 'T') {
-      pushNum(read() * scale + offsetX)
-      pushNum(read() * scale + offsetY)
-      if (cmd === 'M') cmd = 'L'
-    } else if (cmd === 'm' || cmd === 'l' || cmd === 't') {
-      pushNum(read() * scale)
-      pushNum(read() * scale)
-      if (cmd === 'm') cmd = 'l'
-    } else if (cmd === 'H') {
-      pushNum(read() * scale + offsetX)
-    } else if (cmd === 'h') {
-      pushNum(read() * scale)
-    } else if (cmd === 'V') {
-      pushNum(read() * scale + offsetY)
-    } else if (cmd === 'v') {
-      pushNum(read() * scale)
-    } else if (cmd === 'C') {
-      for (let n = 0; n < 3; n += 1) {
-        pushNum(read() * scale + offsetX)
-        pushNum(read() * scale + offsetY)
-      }
-    } else if (cmd === 'c') {
-      for (let n = 0; n < 3; n += 1) {
-        pushNum(read() * scale)
-        pushNum(read() * scale)
-      }
-    } else if (cmd === 'S' || cmd === 'Q') {
-      for (let n = 0; n < 2; n += 1) {
-        pushNum(read() * scale + offsetX)
-        pushNum(read() * scale + offsetY)
-      }
-    } else if (cmd === 's' || cmd === 'q') {
-      for (let n = 0; n < 2; n += 1) {
-        pushNum(read() * scale)
-        pushNum(read() * scale)
-      }
-    } else if (cmd === 'A') {
-      pushNum(read() * scale)
-      pushNum(read() * scale)
-      pushNum(read())
-      pushNum(read())
-      pushNum(read())
-      pushNum(read() * scale + offsetX)
-      pushNum(read() * scale + offsetY)
-    } else if (cmd === 'a') {
-      pushNum(read() * scale)
-      pushNum(read() * scale)
-      pushNum(read())
-      pushNum(read())
-      pushNum(read())
-      pushNum(read() * scale)
-      pushNum(read() * scale)
-    } else {
-      i += 1
-    }
-  }
-
-  return out.join(' ')
-}
-
 function isLight(fill) {
-  const value = fill.toLowerCase()
-  return value === '#ffffff' || value === '#fff' || value === 'white'
-}
-
-function isDark(fill) {
-  const value = fill.toLowerCase()
-  return (
-    value === '#333333' ||
-    value === '#333' ||
-    value === '#111111' ||
-    value === '#000000' ||
-    value === '#000' ||
-    value === 'black'
-  )
+  return fill === '#ffffff' || fill === '#fff' || fill === 'white'
 }
 
 function renderPath(pathItem, role) {
-  const d = pathItem.d
+  const d = pathItem.d.replace(/"/g, "'")
+
   if (role === 'hair') {
     if (isLight(pathItem.fill)) {
       return `<path d="${d}" fill="{{skin}}"/>`
@@ -268,33 +170,27 @@ function renderPath(pathItem, role) {
   return `<path d="${d}" stroke="none"/>`
 }
 
+function wrap(paths, role, transform) {
+  const content = paths.map((pathItem) => renderPath(pathItem, role)).join('')
+  return `<g transform="${transform}">${content}</g>`
+}
+
 const hair = extractPaths(extractGroup('hair'))
 const skin = extractPaths(extractGroup('skin'))
 const features = extractPaths(extractGroup('features'))
 const all = [...hair, ...skin, ...features]
 const bounds = boundsOf(all)
 
-const padding = 4
+const padding = 3
 const target = 80
-const scale = Math.min(
-  (target - padding * 2) / bounds.width,
-  (target - padding * 2) / bounds.height,
-)
-const offsetX = (target - bounds.width * scale) / 2 - bounds.minX * scale
-const offsetY = (target - bounds.height * scale) / 2 - bounds.minY * scale
-
-const mapPaths = (paths, role) =>
-  paths
-    .map((pathItem) =>
-      renderPath(
-        {
-          ...pathItem,
-          d: transformD(pathItem.d, scale, offsetX, offsetY),
-        },
-        role,
-      ),
-    )
-    .join('')
+const scale =
+  Math.min(
+    (target - padding * 2) / bounds.width,
+    (target - padding * 2) / bounds.height,
+  )
+const tx = (target - bounds.width * scale) / 2 - bounds.minX * scale
+const ty = (target - bounds.height * scale) / 2 - bounds.minY * scale
+const transform = `translate(${tx} ${ty}) scale(${scale})`
 
 const file = `import type { AvatarDefinition } from '../../types'
 import { createAvatarSvg } from '../shell'
@@ -303,9 +199,9 @@ export const yasmin: AvatarDefinition = {
   id: 'yasmin',
   gender: 'female',
   svg: createAvatarSvg({
-    hair: '${mapPaths(hair, 'hair')}',
-    skin: '${mapPaths(skin, 'skin')}',
-    features: '${mapPaths(features, 'features')}',
+    hair: '${wrap(hair, 'hair', transform)}',
+    skin: '${wrap(skin, 'skin', transform)}',
+    features: '${wrap(features, 'features', transform)}',
   }),
 }
 `
@@ -313,5 +209,4 @@ export const yasmin: AvatarDefinition = {
 const outPath = path.resolve('src/avatars/first/yasmin.ts')
 writeFileSync(outPath, file)
 console.log('Wrote', outPath)
-console.log('bounds', bounds)
-console.log('scale', scale)
+console.log({ bounds, scale, tx, ty })
