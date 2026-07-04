@@ -1,6 +1,8 @@
 node_modules/
 dist/
 playground/
+website/dist/
+website/node_modules/
 *.log
 .env
 .env.*
