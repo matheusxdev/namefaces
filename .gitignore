@@ -1,0 +1,14 @@
+node_modules/
+dist/
+playground/
+*.log
+.env
+.env.*
+.DS_Store
+.cursor/
+.idea/
+*.local
+_private/
+_generation/
+prompts/
+scripts/*-preview.svg

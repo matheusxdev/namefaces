@@ -1,0 +1,68 @@
+{
+  "name": "namefaces",
+  "version": "0.1.0",
+  "description": "Each name gets its own face. Simple doodle avatars for people in your app.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "namefaces",
+  "keywords": [
+    "avatar",
+    "avatars",
+    "name",
+    "svg",
+    "profile",
+    "face",
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matheusxdev/namefaces.git"
+  },
+  "bugs": {
+    "url": "https://github.com/matheusxdev/namefaces/issues"
+  },
+  "homepage": "https://github.com/matheusxdev/namefaces#readme",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "validate": "node scripts/validate-avatars.mjs",
+    "preview": "npm run build && node scripts/generate-preview.mjs",
+    "preview:open": "npm run preview && node scripts/open-preview.mjs",
+    "prepublishOnly": "npm run validate && npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "react": "^18.3.1",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  }
+}
