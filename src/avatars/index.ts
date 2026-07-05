@@ -1,6 +1,9 @@
 import type { AvatarDefinition } from '../types'
 import { ana } from './first/ana'
+import { bruna } from './first/bruna'
+import { clevison } from './first/clevison'
 import { joao } from './first/joao'
+import { marcelo } from './first/marcelo'
 import { maria } from './first/maria'
 import { matheus } from './first/matheus'
 import { yasmin } from './first/yasmin'
@@ -12,7 +15,10 @@ import { pool4 } from './pool/pool4'
 
 export const firstAvatars: Record<string, AvatarDefinition> = {
   ana,
+  bruna,
+  clevison,
   joao,
+  marcelo,
   maria,
   matheus,
   yasmin,

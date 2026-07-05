@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const scrolled = ref(false)
+
+const isCatalog = computed(() => route.name === 'catalog')
 
 function onScroll() {
   scrolled.value = window.scrollY > 12
@@ -20,13 +24,13 @@ onUnmounted(() => {
 <template>
   <header class="nav" :class="{ scrolled }">
     <div class="container nav-inner">
-      <a href="#topo" class="logo">namefaces</a>
+      <RouterLink to="/" class="logo">namefaces</RouterLink>
 
       <nav class="links">
-        <a href="#recursos">Recursos</a>
-        <a href="#demo">Demo</a>
-        <a href="#como-usar">Como usar</a>
-        <a href="#rostos">Rostos</a>
+        <RouterLink to="/#recursos">Recursos</RouterLink>
+        <RouterLink to="/#demo">Demo</RouterLink>
+        <RouterLink to="/#como-usar">Como usar</RouterLink>
+        <RouterLink to="/rostos" :class="{ active: isCatalog }">Rostos</RouterLink>
       </nav>
 
       <div class="actions">
@@ -38,7 +42,9 @@ onUnmounted(() => {
         >
           GitHub
         </a>
-        <a class="btn btn-primary nav-btn" href="#como-usar">Começar</a>
+        <RouterLink class="btn btn-primary nav-btn" to="/#como-usar">
+          Começar
+        </RouterLink>
       </div>
     </div>
   </header>
@@ -86,7 +92,8 @@ onUnmounted(() => {
   font-weight: 500;
 }
 
-.links a:hover {
+.links a:hover,
+.links a.active {
   color: var(--ink);
 }
 

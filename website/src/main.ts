@@ -1,5 +1,11 @@
 import { createApp } from 'vue'
+import { RouterLink, RouterView } from 'vue-router'
 import App from './App.vue'
+import { router } from './router'
 import './styles.css'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.component('RouterLink', RouterLink)
+app.component('RouterView', RouterView)
+app.use(router).mount('#app')

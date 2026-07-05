@@ -2,14 +2,15 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>
-        <strong class="logo">namefaces</strong>
+        <RouterLink to="/" class="logo">namefaces</RouterLink>
         <p class="muted">Cada nome ganha um rosto próprio.</p>
       </div>
 
       <div class="links">
-        <a href="#recursos">Recursos</a>
-        <a href="#demo">Demo</a>
-        <a href="#como-usar">Como usar</a>
+        <RouterLink to="/#recursos">Recursos</RouterLink>
+        <RouterLink to="/#demo">Demo</RouterLink>
+        <RouterLink to="/#como-usar">Como usar</RouterLink>
+        <RouterLink to="/rostos">Rostos</RouterLink>
         <a
           href="https://github.com/matheusxdev/namefaces"
           target="_blank"
@@ -36,8 +37,10 @@
 }
 
 .logo {
+  display: inline-block;
   font-family: var(--font-serif);
   font-size: 22px;
+  font-weight: 700;
 }
 
 .footer p {

@@ -27,7 +27,7 @@ const features = [
     <div class="container">
       <div class="head">
         <Reveal>
-          <h2 class="serif">Pessoas conectadas trabalham melhor juntas</h2>
+          <h2 class="serif">Rosto próprio, não ícone genérico</h2>
         </Reveal>
         <Reveal :delay="1">
           <a class="btn btn-primary" href="#como-usar">Começar grátis</a>
@@ -108,7 +108,7 @@ const features = [
 
 .head h2 {
   margin: 0;
-  max-width: 12ch;
+  max-width: 14ch;
   font-size: clamp(34px, 4vw, 48px);
 }
 
