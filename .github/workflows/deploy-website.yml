@@ -28,6 +28,7 @@ jobs:
       - name: Install and build
         run: |
           npm ci
+          npm --prefix website ci
           npm run website:pages
 
       - uses: actions/upload-pages-artifact@v3
