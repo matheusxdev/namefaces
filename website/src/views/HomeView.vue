@@ -3,6 +3,7 @@ import HeroSection from '../components/HeroSection.vue'
 import FeaturesSection from '../components/FeaturesSection.vue'
 import DemoSection from '../components/DemoSection.vue'
 import CodeSection from '../components/CodeSection.vue'
+import DocsSection from '../components/DocsSection.vue'
 import GallerySection from '../components/GallerySection.vue'
 import CtaSection from '../components/CtaSection.vue'
 </script>
@@ -12,6 +13,7 @@ import CtaSection from '../components/CtaSection.vue'
   <FeaturesSection />
   <DemoSection />
   <CodeSection />
+  <DocsSection />
   <GallerySection />
   <CtaSection />
 </template>

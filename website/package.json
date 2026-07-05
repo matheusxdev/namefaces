@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:pages": "vite build --base=/namefaces/ && node scripts/copy-spa-fallback.mjs",
+    "preview": "vite preview",
+    "preview:pages": "vite preview --base=/namefaces/"
   },
   "dependencies": {
     "namefaces": "file:..",

@@ -11,8 +11,8 @@ import Reveal from './Reveal.vue'
           <div class="faces">
             <AvatarFace name="Yasmin" :size="52" background="#F7F4EE" />
             <AvatarFace name="Matheus" :size="52" hair="#4C1D95" background="#EDE9FE" />
+            <AvatarFace name="Lucas Ferreira" :size="52" background="#DBEAFE" text="#1D4ED8" />
             <AvatarFace name="Ana" :size="52" hair="#0F766E" background="#DCFCE7" />
-            <AvatarFace name="João" :size="52" hair="#1D4ED8" background="#DBEAFE" />
           </div>
 
           <h2 class="serif">Nunca mais pergunte “quem é essa pessoa?”</h2>

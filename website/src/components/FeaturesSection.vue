@@ -7,17 +7,25 @@ const features = [
     title: 'Rosto antes do ícone',
     text: 'Cada pessoa aparece com identidade própria, não como mais uma silhueta igual às outras.',
     tone: 'blue',
-    names: ['Yasmin', 'Matheus', 'Ana', 'João', 'Maria', 'Silva'],
+    names: ['Yasmin', 'Matheus', 'Ana', 'João', 'Maria', 'Bruna'],
+  },
+  {
+    title: 'Iniciais automáticas',
+    text: 'Sem rosto no mapa? Gera M ou MO no mesmo estilo — fundo redondo, traço consistente, fonte brand.',
+    tone: 'green',
+    initials: true,
   },
   {
     title: 'Ache pelo nome',
-    text: 'Passe o nome e receba o avatar. Funciona com primeiro nome, sobrenome ou nome completo.',
-    tone: 'green',
+    text: 'Passe o nome e receba rosto ou iniciais. Funciona com primeiro nome, sobrenome ou nome completo.',
+    tone: 'lavender',
+    search: true,
   },
   {
     title: 'Cor do seu produto',
-    text: 'Pinte fundo, cabelo, pele e traços. O rosto continua único, no visual da sua marca.',
+    text: 'Pinte fundo, cabelo, pele, traços — ou cor do texto e fonte nas iniciais.',
     tone: 'peach',
+    colors: true,
   },
 ]
 </script>
@@ -30,7 +38,7 @@ const features = [
           <h2 class="serif">Rosto próprio, não ícone genérico</h2>
         </Reveal>
         <Reveal :delay="1">
-          <a class="btn btn-primary" href="#como-usar">Começar grátis</a>
+          <a class="btn btn-primary" href="#docs">Ver documentação</a>
         </Reveal>
       </div>
 
@@ -49,20 +57,38 @@ const features = [
                     :key="name"
                     :name="name"
                     :size="44"
-                    :mode="name === 'Silva' ? 'last' : 'first'"
                     background="#ffffff"
                   />
                 </div>
               </template>
 
-              <template v-else-if="feature.tone === 'green'">
+              <template v-else-if="feature.initials">
+                <div class="initials-row">
+                  <AvatarFace name="Lucas" :size="56" />
+                  <AvatarFace
+                    name="Lucas Ferreira"
+                    :size="56"
+                    background="#EDE9FE"
+                    text="#4C1D95"
+                  />
+                  <AvatarFace
+                    name="Matheus"
+                    :size="56"
+                    kind="initials"
+                    background="#DBEAFE"
+                    text="#1D4ED8"
+                  />
+                </div>
+              </template>
+
+              <template v-else-if="feature.search">
                 <div class="search-mock">
-                  <div class="search-bar">Yasmin Silva</div>
+                  <div class="search-bar">Lucas Ferreira</div>
                   <div class="result">
-                    <AvatarFace name="Yasmin" :size="48" />
+                    <AvatarFace name="Lucas Ferreira" :size="48" />
                     <div>
-                      <strong>Yasmin Silva</strong>
-                      <span>rosto próprio encontrado</span>
+                      <strong>Lucas Ferreira</strong>
+                      <span>iniciais · LF</span>
                     </div>
                   </div>
                 </div>
@@ -78,10 +104,12 @@ const features = [
                     hair="#4C1D95"
                   />
                   <AvatarFace
-                    name="Matheus"
+                    name="Lucas"
                     :size="64"
-                    background="#DBEAFE"
-                    hair="#1D4ED8"
+                    kind="initials"
+                    background="#DCFCE7"
+                    text="#166534"
+                    font="sans"
                   />
                 </div>
               </template>
@@ -114,7 +142,7 @@ const features = [
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -137,6 +165,10 @@ const features = [
   background: var(--pastel-green);
 }
 
+.visual.lavender {
+  background: #ede9fe;
+}
+
 .visual.peach {
   background: var(--pastel-peach);
 }
@@ -145,6 +177,13 @@ const features = [
   display: grid;
   grid-template-columns: repeat(3, auto);
   gap: 10px;
+}
+
+.initials-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .search-mock,

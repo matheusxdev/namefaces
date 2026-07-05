@@ -3,7 +3,7 @@ import CatalogView from './views/CatalogView.vue'
 import HomeView from './views/HomeView.vue'
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to) {
     if (to.hash) {
       return new Promise((resolve) => {

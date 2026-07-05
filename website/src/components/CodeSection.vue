@@ -5,14 +5,18 @@ import Reveal from './Reveal.vue'
 const copied = ref(false)
 
 const install = 'npm install namefaces'
-const snippet = `import { getAvatarDataUri } from 'namefaces'
+const snippet = `import { getAvatarSvg } from 'namefaces'
 
-const src = getAvatarDataUri('Yasmin Silva', {
-  size: 64,
-  hair: '#4C1D95',
-})
+// Rosto se existir, senão iniciais
+getAvatarSvg('Maria Silva', { size: 64 })
 
-// <img src={src} alt="Yasmin" />`
+// Só iniciais, com cor e fonte
+getAvatarSvg('Lucas Ferreira', {
+  kind: 'initials',
+  background: '#EDE9FE',
+  text: '#4C1D95',
+  font: 'brand',
+})`
 
 async function copyInstall() {
   await navigator.clipboard.writeText(install)
@@ -31,8 +35,8 @@ async function copyInstall() {
           <span class="eyebrow">Leve e simples</span>
           <h2 class="serif">Entra no seu app em segundos</h2>
           <p class="muted">
-            Funciona em qualquer stack. Instale, passe o nome e use o SVG ou o
-            data URI como foto de perfil.
+            Instale, passe o nome e use o SVG ou data URI. Sem rosto no mapa?
+            As iniciais entram sozinhas — M, MO, LF e por aí vai.
           </p>
 
           <div class="install card">

@@ -11,6 +11,9 @@ const props = withDefaults(
     skin?: string
     features?: string
     mode?: AvatarOptions['mode']
+    kind?: AvatarOptions['kind']
+    font?: AvatarOptions['font']
+    text?: string
   }>(),
   {
     size: 80,
@@ -22,10 +25,13 @@ const svg = computed(() =>
   getAvatarSvg(props.name, {
     size: props.size,
     mode: props.mode,
+    kind: props.kind,
     background: props.background,
     hair: props.hair,
     skin: props.skin,
     features: props.features,
+    text: props.text,
+    font: props.font,
   }),
 )
 </script>

@@ -2,7 +2,9 @@
 
 **Cada nome ganha um rosto próprio.**
 
-Em vez do mesmo ícone genérico para todo mundo, o namefaces dá uma identidade visual para cada pessoa da sua listagem — clientes, usuários, equipe, contatos.
+Em vez do mesmo ícone genérico para todo mundo, o namefaces dá identidade visual para cada pessoa da sua listagem — clientes, usuários, equipe, contatos.
+
+**npm:** [namefaces@0.2.0](https://www.npmjs.com/package/namefaces) · **Guia completo:** [docs/USO.md](./docs/USO.md)
 
 ---
 
@@ -10,7 +12,8 @@ Em vez do mesmo ícone genérico para todo mundo, o namefaces dá uma identidade
 
 - Listagens de clientes com cara de gente de verdade
 - Perfis sem foto, sem parecer todos iguais
-- Identidade estável: o mesmo nome sempre mostra o mesmo rosto
+- Identidade estável: o mesmo nome sempre mostra o mesmo avatar
+- **Iniciais automáticas** quando ainda não há rosto desenhado (`M`, `MO`, `LF`…)
 - Leve, em SVG, e fácil de colorir
 
 ---
@@ -19,14 +22,6 @@ Em vez do mesmo ícone genérico para todo mundo, o namefaces dá uma identidade
 
 ```bash
 npm install namefaces
-```
-
-```bash
-yarn add namefaces
-```
-
-```bash
-pnpm add namefaces
 ```
 
 ---
@@ -38,19 +33,9 @@ pnpm add namefaces
 ```js
 import { getAvatarSvg, getAvatarDataUri } from 'namefaces'
 
+// Com rosto próprio → rosto; senão → iniciais
 const svg = getAvatarSvg('Matheus Silva')
-const src = getAvatarDataUri('Yasmin')
-```
-
-No HTML:
-
-```html
-<img id="avatar" width="64" height="64" alt="Yasmin" />
-<script type="module">
-  import { getAvatarDataUri } from 'namefaces'
-
-  document.getElementById('avatar').src = getAvatarDataUri('Yasmin')
-</script>
+const src = getAvatarDataUri('Lucas Ferreira') // iniciais "LF"
 ```
 
 ### React
@@ -65,99 +50,102 @@ export function Cliente({ nome }) {
 
 ---
 
-## Cores
+## Iniciais (v0.2)
 
-Você pode pintar cada parte do rosto:
+Por padrão, nomes **sem rosto próprio** recebem iniciais dinâmicas:
 
-| Opção | O que muda | Padrão |
-| --- | --- | --- |
-| `background` | fundo redondo | `#E8E8E8` |
-| `hair` | cabelo | `#111111` |
-| `skin` | rosto | `#FFFFFF` |
-| `features` | olhos, nariz, boca, traços e acessórios | `#111111` |
+| Entrada | Iniciais |
+| --- | --- |
+| `Matheus` | `M` |
+| `Matheus Oliveira` | `MO` |
+| `Lucas Ferreira` | `LF` |
+
+Máximo **2 letras**. Fundo redondo, traço consistente, fonte **brand** (Fraunces) por padrão.
 
 ```js
-import { getAvatarSvg } from 'namefaces'
+import { getAvatarSvg, extractInitials } from 'namefaces'
 
+extractInitials('Matheus Oliveira') // "MO"
+
+getAvatarSvg('Lucas') // iniciais (padrão)
+
+getAvatarSvg('Matheus', { kind: 'initials' }) // força iniciais
+
+getAvatarSvg('Lucas Ferreira', {
+  kind: 'initials',
+  background: '#EDE9FE',
+  text: '#4C1D95',
+  font: 'brand', // brand | sans | rounded
+})
+
+// Comportamento antigo (pool genérico)
+getAvatarSvg('Lucas', { kind: 'face', fallback: 'pool' })
+```
+
+### Tipo (`kind`)
+
+| Valor | Comportamento |
+| --- | --- |
+| `auto` (padrão) | rosto se existir, senão iniciais |
+| `face` | tenta rosto; sem match usa `fallback` |
+| `initials` | sempre iniciais |
+
+---
+
+## Cores
+
+### Rostos
+
+| Opção | Padrão |
+| --- | --- |
+| `background` | `#E8E8E8` |
+| `hair` | `#111111` |
+| `skin` | `#FFFFFF` |
+| `features` | `#111111` |
+
+### Iniciais
+
+| Opção | Padrão |
+| --- | --- |
+| `background` | `#E8E8E8` |
+| `text` | `#111111` |
+| `font` | `brand` |
+
+```js
 getAvatarSvg('Ana', {
   size: 64,
   background: '#F3E8FF',
   hair: '#4C1D95',
-  skin: '#FFF7ED',
-  features: '#1F2937',
 })
-```
-
-```tsx
-<NameFace
-  name="João"
-  size={48}
-  background="#DBEAFE"
-  hair="#1E3A8A"
-  features="#0F172A"
-/>
 ```
 
 ---
 
 ## Nome, sobrenome ou nome completo
 
-Por padrão, o namefaces usa o **primeiro nome**.
-
-```js
-getAvatarSvg('Matheus Silva')
-// usa o rosto de "matheus"
-```
-
-Se quiser outro recorte:
-
 | Modo | Exemplo | Comportamento |
 | --- | --- | --- |
 | `first` | `Matheus Silva` | usa `matheus` |
 | `last` | `Matheus Silva` | usa `silva` |
-| `full` | `Matheus Silva` | tenta `matheus-silva`, senão cai no primeiro nome |
-| `auto` | `Matheus Silva` | tenta nome completo, depois primeiro nome, depois sobrenome |
+| `full` | `Matheus Silva` | tenta `matheus-silva` |
+| `auto` | `Matheus Silva` | full → first → last; sem rosto → iniciais |
 
-```js
-getAvatarSvg('Matheus Silva', { mode: 'last' })
-getAvatarSvg('Matheus Silva', { mode: 'auto' })
-```
-
-Acentos não importam: `José`, `jose` e `JOSÉ` apontam para o mesmo rosto.
+Acentos não importam: `José`, `jose` e `JOSÉ` apontam para o mesmo resultado.
 
 ---
 
-## Quando o nome ainda não tem rosto próprio
+## Nomes com rosto próprio (v0.2.0)
 
-Se o nome ainda não estiver no mapa, o namefaces escolhe um rosto estável do conjunto geral.
-
-Assim sua listagem nunca fica sem avatar.
-
-Para saber se existe identidade própria:
-
-```js
-import { hasAvatar } from 'namefaces'
-
-hasAvatar('Matheus') // true
-hasAvatar('NomeRaro') // false
-```
-
----
-
-## Nomes com rosto próprio nesta versão
-
-**Primeiros nomes:** ana, joao, maria, matheus, yasmin
+**Primeiros nomes:** ana, bruna, clevison, joao, marcelo, maria, matheus, yasmin
 
 **Sobrenomes:** silva
 
-A coleção cresce com o tempo. Quanto mais nomes entrarem, mais gente ganha identidade própria.
-
-Para listar tudo no código:
-
 ```js
-import { listKnownNames } from 'namefaces'
+import { listKnownNames, hasAvatar } from 'namefaces'
 
-console.log(listKnownNames())
+listKnownNames()
+hasAvatar('Matheus') // true
+hasAvatar('Lucas')   // false → iniciais
 ```
 
 ---
@@ -171,70 +159,51 @@ import {
   getAvatarDataUri,
   hasAvatar,
   listKnownNames,
+  extractInitials,
+  INITIALS_FONTS,
 } from 'namefaces'
 ```
 
 | Função | Retorno |
 | --- | --- |
-| `getAvatar(nome, opcoes?)` | objeto com `svg`, `dataUri`, `matched`, cores e tamanho |
-| `getAvatarSvg(nome, opcoes?)` | texto SVG pronto |
-| `getAvatarDataUri(nome, opcoes?)` | endereço para usar em `<img src="...">` |
-| `hasAvatar(nome, opcoes?)` | `true` se o nome tem rosto próprio |
-| `listKnownNames()` | nomes e sobrenomes já mapeados |
+| `getAvatar(nome, opcoes?)` | `{ svg, dataUri, matched, render, initials?, ... }` |
+| `getAvatarSvg(nome, opcoes?)` | string SVG |
+| `getAvatarDataUri(nome, opcoes?)` | data URI para `<img>` |
+| `hasAvatar(nome, opcoes?)` | `true` se existe rosto próprio |
+| `extractInitials(nome)` | `"M"`, `"MO"`, etc. |
 
-### React
+**`render`:** `'face'` | `'initials'` | `'pool'`
 
-```tsx
-import { NameFace } from 'namefaces/react'
-```
+### React — `NameFace`
 
 | Prop | Descrição |
 | --- | --- |
 | `name` | nome da pessoa |
-| `size` | tamanho em pixels |
-| `mode` | `first`, `last`, `full` ou `auto` |
-| `background`, `hair`, `skin`, `features` | cores |
-| `as` | `"svg"` (padrão) ou `"img"` |
-| `className`, `style`, `title` | apresentação |
+| `size` | pixels |
+| `mode` | `first`, `last`, `full`, `auto` |
+| `kind` | `auto`, `face`, `initials` |
+| `fallback` | `initials`, `pool` |
+| `background`, `hair`, `skin`, `features`, `text` | cores |
+| `font` | `brand`, `sans`, `rounded` ou CSS |
+| `as` | `"svg"` ou `"img"` |
 
 ---
 
-## Usar sem instalar (CDN)
-
-Depois que o pacote estiver no npm, o [jsDelivr](https://www.jsdelivr.com/) serve os arquivos automaticamente:
+## CDN
 
 ```html
 <script type="module">
-  import { getAvatarDataUri } from 'https://cdn.jsdelivr.net/npm/namefaces@0.1.0/+esm'
+  import { getAvatarDataUri } from 'https://cdn.jsdelivr.net/npm/namefaces@0.2.0/+esm'
 
   document.getElementById('avatar').src = getAvatarDataUri('Maria')
 </script>
 ```
 
-Prefira sempre uma versão fixa (`@0.1.0`) em produção.
-
 ---
 
 ## Licença
 
-Você pode usar o namefaces de graça, inclusive em produtos e sites do trabalho.
-
-O que não pode: vender esta biblioteca (ou um pedaço grande dela) como um produto pago de avatars.
-
-Detalhes em [LICENSE](./LICENSE).
-
----
-
-## Contribuir
-
-Quer adicionar um rosto novo?
-
-1. Crie um arquivo em `src/avatars/first/`, `src/avatars/last/` ou `src/avatars/full/`
-2. Use o mesmo formato dos avatars existentes (`createAvatarSvg`)
-3. Registre o nome em `src/avatars/index.ts`
-4. Rode `npm run validate` e `npm run build`
-
-Cada rosto precisa das partes `background`, `hair`, `skin` e `features`, no `viewBox` `0 0 80 80`.
+Uso livre em apps comerciais. Não revenda a lib como produto pago de avatars. Ver [LICENSE](./LICENSE).
 
 ---
 

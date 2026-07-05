@@ -6,11 +6,14 @@ import {
 } from './types'
 
 export function resolveColors(colors: AvatarColors = {}): Required<AvatarColors> {
+  const features = colors.features ?? DEFAULT_COLORS.features
+
   return {
     background: colors.background ?? DEFAULT_COLORS.background,
     hair: colors.hair ?? DEFAULT_COLORS.hair,
     skin: colors.skin ?? DEFAULT_COLORS.skin,
-    features: colors.features ?? DEFAULT_COLORS.features,
+    features,
+    text: colors.text ?? features,
   }
 }
 

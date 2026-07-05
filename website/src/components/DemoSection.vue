@@ -1,22 +1,31 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { getAvatar, type AvatarMode } from 'namefaces'
+import { getAvatar, type AvatarKind, type AvatarMode } from 'namefaces'
 import AvatarFace from './AvatarFace.vue'
 import Reveal from './Reveal.vue'
 
 const name = ref('Yasmin Silva')
 const mode = ref<AvatarMode>('auto')
+const kind = ref<AvatarKind>('auto')
 const hair = ref('#111111')
 const background = ref('#E8E8E8')
 const skin = ref('#FFFFFF')
 const features = ref('#111111')
+const text = ref('#111111')
+const font = ref<'brand' | 'sans' | 'rounded'>('brand')
 const activeTheme = ref('neutral')
 
 const modes: { value: AvatarMode; label: string; hint: string }[] = [
-  { value: 'auto', label: 'Auto', hint: 'Primeiro → sobrenome → pool' },
+  { value: 'auto', label: 'Auto', hint: 'Primeiro → sobrenome → iniciais' },
   { value: 'first', label: 'Primeiro', hint: 'Só o primeiro nome' },
   { value: 'last', label: 'Sobrenome', hint: 'Só o sobrenome' },
   { value: 'full', label: 'Completo', hint: 'Nome inteiro' },
+]
+
+const kinds: { value: AvatarKind; label: string }[] = [
+  { value: 'auto', label: 'Auto' },
+  { value: 'face', label: 'Rosto' },
+  { value: 'initials', label: 'Iniciais' },
 ]
 
 const themes = [
@@ -62,11 +71,30 @@ const themes = [
   },
 ]
 
-const colorFields = [
-  { key: 'background' as const, label: 'Fundo' },
-  { key: 'hair' as const, label: 'Cabelo' },
-  { key: 'skin' as const, label: 'Pele' },
-  { key: 'features' as const, label: 'Traços' },
+const colorFields = computed(() => {
+  const base = [
+    { key: 'background' as const, label: 'Fundo' },
+  ]
+
+  if (result.value.render === 'initials' || kind.value === 'initials') {
+    return [
+      ...base,
+      { key: 'text' as const, label: 'Texto' },
+    ]
+  }
+
+  return [
+    ...base,
+    { key: 'hair' as const, label: 'Cabelo' },
+    { key: 'skin' as const, label: 'Pele' },
+    { key: 'features' as const, label: 'Traços' },
+  ]
+})
+
+const fonts = [
+  { value: 'brand' as const, label: 'Brand' },
+  { value: 'sans' as const, label: 'Sans' },
+  { value: 'rounded' as const, label: 'Rounded' },
 ]
 
 const suggestions = [
@@ -82,11 +110,14 @@ const colors = computed(() => ({
   hair: hair.value,
   skin: skin.value,
   features: features.value,
+  text: text.value,
 }))
 
 const result = computed(() =>
   getAvatar(name.value || 'Yasmin', {
     mode: mode.value,
+    kind: kind.value,
+    font: font.value,
     ...colors.value,
   }),
 )
@@ -95,30 +126,49 @@ const modeHint = computed(
   () => modes.find((item) => item.value === mode.value)?.hint ?? '',
 )
 
-const statusLabel = computed(() =>
-  result.value.matched ? 'Rosto próprio' : 'Fallback estável',
-)
+const statusLabel = computed(() => {
+  if (result.value.render === 'initials') {
+    return result.value.matched ? 'Iniciais (rosto disponível)' : 'Iniciais'
+  }
+  if (result.value.render === 'pool') {
+    return 'Fallback pool'
+  }
+  return 'Rosto próprio'
+})
 
 const statusDetail = computed(() => {
-  if (result.value.matched) {
-    return `Identidade · ${result.value.mode} · ${result.value.id}`
+  if (result.value.render === 'initials') {
+    return `Iniciais · ${result.value.initials} · fonte ${font.value}`
   }
-  return `Pool · ${result.value.id} · seed "${result.value.key}"`
+  if (result.value.render === 'pool') {
+    return `Pool · ${result.value.id} · seed "${result.value.key}"`
+  }
+  return `Identidade · ${result.value.mode} · ${result.value.id}`
 })
 
 const codeSnippet = computed(() => {
   const options: string[] = [`mode: '${mode.value}'`]
 
+  if (kind.value !== 'auto') {
+    options.push(`kind: '${kind.value}'`)
+  }
+  if (font.value !== 'brand' && (kind.value === 'initials' || result.value.render === 'initials')) {
+    options.push(`font: '${font.value}'`)
+  }
+
   if (background.value !== '#E8E8E8') {
     options.push(`background: '${background.value}'`)
   }
-  if (hair.value !== '#111111') {
+  if (hair.value !== '#111111' && result.value.render === 'face') {
     options.push(`hair: '${hair.value}'`)
   }
-  if (skin.value !== '#FFFFFF') {
+  if (skin.value !== '#FFFFFF' && result.value.render === 'face') {
     options.push(`skin: '${skin.value}'`)
   }
-  if (features.value !== '#111111') {
+  if (text.value !== '#111111' && (kind.value === 'initials' || result.value.render === 'initials')) {
+    options.push(`text: '${text.value}'`)
+  }
+  if (features.value !== '#111111' && result.value.render === 'face') {
     options.push(`features: '${features.value}'`)
   }
 
@@ -169,8 +219,8 @@ watch([hair, background, skin, features], () => {
           <span class="eyebrow">Demo interativa</span>
           <h2 class="serif">Digite um nome e veja o rosto nascer</h2>
           <p class="muted">
-            Teste em tempo real. Troque o modo de resolução, aplique a paleta
-            do seu produto e veja o mesmo rosto em tamanhos diferentes.
+            Teste rostos e iniciais em tempo real. Troque tipo, modo, paleta,
+            fonte e veja o snippet gerado.
           </p>
         </Reveal>
 
@@ -214,6 +264,23 @@ watch([hair, background, skin, features], () => {
                 </button>
               </div>
               <p class="hint">{{ modeHint }}</p>
+            </div>
+
+            <div class="group">
+              <span class="group-label">Tipo</span>
+              <div class="mode-tabs" role="tablist" aria-label="Tipo de avatar">
+                <button
+                  v-for="item in kinds"
+                  :key="item.value"
+                  type="button"
+                  role="tab"
+                  :aria-selected="kind === item.value"
+                  :class="{ active: kind === item.value }"
+                  @click="kind = item.value"
+                >
+                  {{ item.label }}
+                </button>
+              </div>
             </div>
 
             <div class="group">
@@ -272,14 +339,38 @@ watch([hair, background, skin, features], () => {
                       aria-label="Cor da pele"
                     />
                     <input
+                      v-model="text"
+                      v-else-if="field.key === 'text'"
+                      type="color"
+                      aria-label="Cor do texto"
+                    />
+                    <input
                       v-model="features"
-                      v-else
+                      v-else-if="field.key === 'features'"
                       type="color"
                       aria-label="Cor dos traços"
                     />
                     <code>{{ colors[field.key].toUpperCase() }}</code>
                   </div>
                 </label>
+              </div>
+            </div>
+
+            <div
+              v-if="result.render === 'initials' || kind === 'initials'"
+              class="group"
+            >
+              <span class="group-label">Fonte das iniciais</span>
+              <div class="mode-tabs">
+                <button
+                  v-for="item in fonts"
+                  :key="item.value"
+                  type="button"
+                  :class="{ active: font === item.value }"
+                  @click="font = item.value"
+                >
+                  {{ item.label }}
+                </button>
               </div>
             </div>
 
@@ -318,6 +409,8 @@ watch([hair, background, skin, features], () => {
               :name="name || 'Yasmin'"
               :size="220"
               :mode="mode"
+              :kind="kind"
+              :font="font"
               v-bind="colors"
             />
           </div>
@@ -325,7 +418,11 @@ watch([hair, background, skin, features], () => {
           <div class="meta">
             <span
               class="badge"
-              :class="result.matched ? 'own' : 'pool'"
+              :class="{
+                own: result.render === 'face',
+                initials: result.render === 'initials',
+                pool: result.render === 'pool',
+              }"
             >
               {{ statusLabel }}
             </span>
@@ -342,6 +439,8 @@ watch([hair, background, skin, features], () => {
                 :name="name || 'Yasmin'"
                 :size="size"
                 :mode="mode"
+                :kind="kind"
+                :font="font"
                 v-bind="colors"
               />
             </div>
@@ -659,6 +758,11 @@ watch([hair, background, skin, features], () => {
 .badge.own {
   background: #d1fae5;
   color: #0f766e;
+}
+
+.badge.initials {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 .badge.pool {

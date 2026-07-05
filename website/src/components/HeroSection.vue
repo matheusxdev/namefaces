@@ -22,9 +22,9 @@ const faces = [
             <span class="highlight">rosto próprio</span>
           </h1>
           <p class="lead muted">
-            Pare de usar o mesmo ícone genérico para todo mundo. O namefaces
-            transforma nomes em avatars únicos — perfeito para clientes,
-            usuários e equipes.
+            Pare de usar o mesmo ícone genérico para todo mundo. Rostos únicos
+            para nomes conhecidos e iniciais automáticas para o resto —
+            perfeito para clientes, usuários e equipes.
           </p>
 
           <div class="cta-row">
@@ -44,7 +44,7 @@ const faces = [
               />
             </div>
             <p class="muted">
-              Mesmo nome, mesmo rosto. Em qualquer listagem do seu app.
+              Mesmo nome, mesmo avatar. Rosto ou iniciais.
             </p>
           </div>
         </div>

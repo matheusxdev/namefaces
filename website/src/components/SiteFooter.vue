@@ -9,6 +9,7 @@
       <div class="links">
         <RouterLink to="/#recursos">Recursos</RouterLink>
         <RouterLink to="/#demo">Demo</RouterLink>
+        <RouterLink to="/#docs">Docs</RouterLink>
         <RouterLink to="/#como-usar">Como usar</RouterLink>
         <RouterLink to="/rostos">Rostos</RouterLink>
         <a
