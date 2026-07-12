@@ -1,6 +1,6 @@
 {
   "name": "namefaces",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Each name gets its own face. Simple doodle avatars for people in your app.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "matheusxdev",
@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
+    "potrace": "^2.1.8",
     "react": "^18.3.1",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"

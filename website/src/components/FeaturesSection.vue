@@ -250,4 +250,28 @@ const features = [
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 540px) {
+  .head h2 {
+    max-width: none;
+  }
+
+  .head .btn {
+    width: 100%;
+  }
+
+  .body h3 {
+    font-size: 24px;
+  }
+
+  .visual {
+    min-height: 160px;
+    padding: 18px;
+  }
+
+  .faces {
+    grid-template-columns: repeat(3, auto);
+    gap: 8px;
+  }
+}
 </style>

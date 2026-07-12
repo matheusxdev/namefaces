@@ -825,4 +825,46 @@ watch([hair, background, skin, features], () => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 540px) {
+  .panel {
+    padding: 18px;
+    gap: 24px;
+  }
+
+  .copy h2 {
+    max-width: none;
+  }
+
+  .mode-tabs button {
+    flex: 1 1 calc(50% - 4px);
+    text-align: center;
+  }
+
+  .theme-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .theme-btn {
+    min-width: 0;
+  }
+
+  .size-row {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .preview {
+    padding: 16px;
+  }
+
+  .stage {
+    padding: 20px 12px;
+  }
+
+  .snippet code {
+    font-size: 11px;
+  }
+}
 </style>

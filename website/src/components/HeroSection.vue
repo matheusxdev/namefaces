@@ -53,8 +53,10 @@ const faces = [
       <Reveal :delay="2">
         <div class="showcase card">
           <div class="showcase-top">
-            <AvatarFace name="Yasmin" :size="168" />
-            <div>
+            <div class="showcase-avatar-wrap">
+              <AvatarFace name="Yasmin" :size="168" />
+            </div>
+            <div class="showcase-info">
               <p class="label muted">Perfil</p>
               <h2 class="serif">Yasmin</h2>
               <p class="muted">Cliente · identidade própria</p>
@@ -80,19 +82,19 @@ const faces = [
 
 <style scoped>
 .hero {
-  padding-top: 48px;
+  padding-top: clamp(24px, 5vw, 48px);
 }
 
 .hero-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
+  gap: clamp(28px, 5vw, 40px);
   align-items: center;
 }
 
 .title {
   margin: 18px 0 16px;
-  font-size: clamp(42px, 6vw, 72px);
+  font-size: clamp(32px, 7vw, 72px);
   max-width: 12ch;
 }
 
@@ -104,7 +106,7 @@ const faces = [
 .lead {
   margin: 0;
   max-width: 46ch;
-  font-size: 18px;
+  font-size: clamp(16px, 2.5vw, 18px);
   line-height: 1.6;
 }
 
@@ -124,6 +126,7 @@ const faces = [
 
 .stack {
   display: flex;
+  flex-shrink: 0;
 }
 
 .stack :deep(.avatar-face) {
@@ -139,17 +142,26 @@ const faces = [
   margin: 0;
   font-size: 14px;
   max-width: 28ch;
+  line-height: 1.45;
 }
 
 .showcase {
-  padding: 28px;
+  padding: clamp(20px, 4vw, 28px);
 }
 
 .showcase-top {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(16px, 3vw, 20px);
   margin-bottom: 24px;
+}
+
+.showcase-info {
+  min-width: 0;
+}
+
+.showcase-avatar-wrap :deep(.avatar-face) {
+  display: block;
 }
 
 .label {
@@ -161,11 +173,12 @@ const faces = [
 
 .showcase-top h2 {
   margin: 0;
-  font-size: 36px;
+  font-size: clamp(28px, 5vw, 36px);
 }
 
 .showcase-top p:last-child {
   margin: 6px 0 0;
+  font-size: clamp(14px, 2vw, 16px);
 }
 
 .mini-grid {
@@ -183,6 +196,15 @@ const faces = [
   background: var(--bg-soft);
   font-size: 12px;
   font-weight: 600;
+  text-align: center;
+  min-width: 0;
+}
+
+.mini span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 @media (max-width: 900px) {
@@ -196,6 +218,47 @@ const faces = [
 
   .mini-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .cta-row {
+    flex-direction: column;
+  }
+
+  .cta-row .btn {
+    width: 100%;
+  }
+
+  .trust {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .showcase-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .showcase-avatar-wrap :deep(.avatar-face) {
+    width: 128px !important;
+    height: 128px !important;
+  }
+
+  .mini-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 28px;
+  }
+
+  .stack :deep(.avatar-face) {
+    width: 30px !important;
+    height: 30px !important;
   }
 }
 </style>

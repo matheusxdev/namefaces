@@ -148,12 +148,28 @@ const palettes = [
   }
 
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .more {
     flex-direction: column;
     align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .head h2 {
+    font-size: clamp(28px, 7vw, 32px);
+  }
+
+  .head .btn {
+    width: 100%;
   }
 }
 </style>

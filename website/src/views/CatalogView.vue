@@ -52,5 +52,13 @@ import Reveal from '../components/Reveal.vue'
     flex-direction: column;
     align-items: start;
   }
+
+  .head h1 {
+    max-width: none;
+  }
+
+  .head .btn {
+    width: 100%;
+  }
 }
 </style>

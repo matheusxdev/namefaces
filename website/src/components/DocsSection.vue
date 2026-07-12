@@ -74,22 +74,24 @@ const apiRows = [
       <Reveal :delay="2">
         <div class="table-wrap card">
           <h3 class="serif">Opções principais</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Opção</th>
-                <th>Valores</th>
-                <th>Padrão</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="row in apiRows" :key="row[0]">
-                <td><code>{{ row[0] }}</code></td>
-                <td>{{ row[1] }}</td>
-                <td><code>{{ row[2] }}</code></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Opção</th>
+                  <th>Valores</th>
+                  <th>Padrão</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in apiRows" :key="row[0]">
+                  <td><code>{{ row[0] }}</code></td>
+                  <td>{{ row[1] }}</td>
+                  <td><code>{{ row[2] }}</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <p class="note muted">
             Guia completo em
             <a
@@ -167,11 +169,19 @@ const apiRows = [
 
 .table-wrap h3 {
   margin: 0 0 16px;
-  font-size: 28px;
+  font-size: clamp(22px, 4vw, 28px);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 calc(var(--gutter) * -0.5);
+  padding: 0 calc(var(--gutter) * 0.5);
 }
 
 table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
   font-size: 14px;
 }
@@ -203,6 +213,20 @@ th {
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .table-wrap {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 540px) {
+  .block {
+    padding: 16px;
+  }
+
+  .block pre {
+    padding: 12px;
   }
 }
 </style>

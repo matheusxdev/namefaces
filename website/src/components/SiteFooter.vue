@@ -66,5 +66,17 @@
     flex-direction: column;
     align-items: start;
   }
+
+  .links {
+    gap: 12px 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
 }
 </style>

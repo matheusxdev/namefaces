@@ -266,7 +266,27 @@ const modeTabs: { value: AvatarMode | 'all'; label: string; count: number }[] =
   }
 
   .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .grid {
     grid-template-columns: 1fr;
+  }
+
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    margin: 0 calc(var(--gutter) * -1);
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .filters button {
+    flex-shrink: 0;
   }
 }
 </style>

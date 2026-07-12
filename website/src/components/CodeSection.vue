@@ -106,5 +106,21 @@ async function copyInstall() {
     flex-direction: column;
     align-items: stretch;
   }
+
+  .copy h2 {
+    max-width: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .code {
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .install code {
+    font-size: 13px;
+    word-break: break-all;
+  }
 }
 </style>

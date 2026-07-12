@@ -79,4 +79,23 @@ import Reveal from './Reveal.vue'
   flex-wrap: wrap;
   gap: 12px;
 }
+
+@media (max-width: 540px) {
+  .cta {
+    padding: 40px 20px;
+  }
+
+  .cta h2 {
+    max-width: none;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions .btn {
+    width: 100%;
+  }
+}
 </style>

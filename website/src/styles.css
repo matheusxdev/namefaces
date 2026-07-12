@@ -14,6 +14,7 @@
   --radius: 24px;
   --radius-sm: 14px;
   --max: 1120px;
+  --gutter: clamp(16px, 4vw, 24px);
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
 }
@@ -24,6 +25,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -64,12 +66,12 @@ svg {
 }
 
 .container {
-  width: min(var(--max), calc(100% - 40px));
+  width: min(var(--max), calc(100% - var(--gutter) * 2));
   margin: 0 auto;
 }
 
 .section {
-  padding: 88px 0;
+  padding: clamp(48px, 10vw, 88px) 0;
 }
 
 .eyebrow {
@@ -176,8 +178,10 @@ svg {
   transition-delay: 0.24s;
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 64px 0;
+@media (max-width: 480px) {
+  .btn {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 15px;
   }
 }
