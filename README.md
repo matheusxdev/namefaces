@@ -4,7 +4,7 @@
 
 Em vez do mesmo ícone genérico para todo mundo, o namefaces dá identidade visual para cada pessoa da sua listagem — clientes, usuários, equipe, contatos.
 
-**npm:** [namefaces@0.2.0](https://www.npmjs.com/package/namefaces) · **Guia completo:** [docs/USO.md](./docs/USO.md)
+**npm:** [namefaces@0.4.0](https://www.npmjs.com/package/namefaces) · **Guia completo:** [docs/USO.md](./docs/USO.md)
 
 ---
 
@@ -134,9 +134,9 @@ Acentos não importam: `José`, `jose` e `JOSÉ` apontam para o mesmo resultado.
 
 ---
 
-## Nomes com rosto próprio (v0.2.0)
+## Nomes com rosto próprio (v0.4.0)
 
-**Primeiros nomes:** ana, bruna, clevison, joao, marcelo, maria, matheus, yasmin
+**Primeiros nomes:** 184 rostos (ex.: ana, maria, miguel, sabrina, pietro…)
 
 **Sobrenomes:** silva
 
@@ -193,7 +193,7 @@ import {
 
 ```html
 <script type="module">
-  import { getAvatarDataUri } from 'https://cdn.jsdelivr.net/npm/namefaces@0.2.0/+esm'
+  import { getAvatarDataUri } from 'https://cdn.jsdelivr.net/npm/namefaces@0.4.0/+esm'
 
   document.getElementById('avatar').src = getAvatarDataUri('Maria')
 </script>

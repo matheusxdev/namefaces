@@ -1,6 +1,6 @@
 {
   "name": "namefaces",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Each name gets its own face. Simple doodle avatars for people in your app.",
   "license": "SEE LICENSE IN LICENSE",
   "author": "matheusxdev",
@@ -49,6 +49,7 @@
     "validate": "node scripts/validate-avatars.mjs",
     "preview": "npm run build && node scripts/generate-preview.mjs",
     "preview:open": "npm run preview && node scripts/open-preview.mjs",
+    "avatar:add": "node scripts/add-avatar-from-png.mjs",
     "website": "npm run build && npm --prefix website run dev",
     "website:build": "npm run build && npm --prefix website run build",
     "website:pages": "npm run build && npm --prefix website run build:pages",
@@ -64,6 +65,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.3.18",
+    "pngjs": "^7.0.0",
     "potrace": "^2.1.8",
     "react": "^18.3.1",
     "tsup": "^8.3.5",
