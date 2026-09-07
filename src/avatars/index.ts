@@ -209,6 +209,106 @@ import { hiago } from './first/hiago'
 import { iago } from './first/iago'
 import { kerlen } from './first/kerlen'
 import { agnaldo } from './first/agnaldo'
+import { alessandra } from './first/alessandra'
+import { amelia } from './first/amelia'
+import { andresa } from './first/andresa'
+import { angelica } from './first/angelica'
+import { ariane } from './first/ariane'
+import { barbara } from './first/barbara'
+import { cassia } from './first/cassia'
+import { catarina } from './first/catarina'
+import { catia } from './first/catia'
+import { cintia } from './first/cintia'
+import { clara } from './first/clara'
+import { clarice } from './first/clarice'
+import { denise } from './first/denise'
+import { diana } from './first/diana'
+import { elaine } from './first/elaine'
+import { elisa } from './first/elisa'
+import { emilia } from './first/emilia'
+import { ester } from './first/ester'
+import { eva } from './first/eva'
+import { geovana } from './first/geovana'
+import { gloria } from './first/gloria'
+import { heloisa } from './first/heloisa'
+import { iara } from './first/iara'
+import { iris } from './first/iris'
+import { janaina } from './first/janaina'
+import { joana } from './first/joana'
+import { karen } from './first/karen'
+import { karina } from './first/karina'
+import { katia } from './first/katia'
+import { lais } from './first/lais'
+import { leila } from './first/leila'
+import { lilian } from './first/lilian'
+import { livia } from './first/livia'
+import { luzia } from './first/luzia'
+import { mariana } from './first/mariana'
+import { melissa } from './first/melissa'
+import { nadia } from './first/nadia'
+import { pamela } from './first/pamela'
+import { poliana } from './first/poliana'
+import { rafaela } from './first/rafaela'
+import { rebeca } from './first/rebeca'
+import { samara } from './first/samara'
+import { sara } from './first/sara'
+import { silvia } from './first/silvia'
+import { sonia } from './first/sonia'
+import { talita } from './first/talita'
+import { tania } from './first/tania'
+import { veronica } from './first/veronica'
+import { vitoria } from './first/vitoria'
+import { sueli } from './first/sueli'
+import { ademir } from './first/ademir'
+import { ailton } from './first/ailton'
+import { alisson } from './first/alisson'
+import { arnaldo } from './first/arnaldo'
+import { augusto } from './first/augusto'
+import { breno } from './first/breno'
+import { caetano } from './first/caetano'
+import { cassio } from './first/cassio'
+import { cleber } from './first/cleber'
+import { cleiton } from './first/cleiton'
+import { diogo } from './first/diogo'
+import { eder } from './first/eder'
+import { elias } from './first/elias'
+import { emerson } from './first/emerson'
+import { ezequiel } from './first/ezequiel'
+import { fabricio } from './first/fabricio'
+import { fernando } from './first/fernando'
+import { frederico } from './first/frederico'
+import { geraldo } from './first/geraldo'
+import { gerson } from './first/gerson'
+import { gilmar } from './first/gilmar'
+import { giovanni } from './first/giovanni'
+import { hudson } from './first/hudson'
+import { inacio } from './first/inacio'
+import { ismael } from './first/ismael'
+import { ivan } from './first/ivan'
+import { jackson } from './first/jackson'
+import { jair } from './first/jair'
+import { jefferson } from './first/jefferson'
+import { joel } from './first/joel'
+import { josue } from './first/josue'
+import { kleber } from './first/kleber'
+import { levi } from './first/levi'
+import { maicon } from './first/maicon'
+import { manoel } from './first/manoel'
+import { marcio } from './first/marcio'
+import { moises } from './first/moises'
+import { odair } from './first/odair'
+import { orlando } from './first/orlando'
+import { osvaldo } from './first/osvaldo'
+import { raul } from './first/raul'
+import { reinaldo } from './first/reinaldo'
+import { robson } from './first/robson'
+import { rubens } from './first/rubens'
+import { sebastiao } from './first/sebastiao'
+import { silvio } from './first/silvio'
+import { tadeu } from './first/tadeu'
+import { tulio } from './first/tulio'
+import { valdir } from './first/valdir'
+import { yuri } from './first/yuri'
 import { pool1 } from './pool/pool1'
 import { pool2 } from './pool/pool2'
 import { pool3 } from './pool/pool3'
@@ -425,6 +525,106 @@ export const firstAvatars: Record<string, AvatarDefinition> = {
   iago,
   kerlen,
   agnaldo,
+  alessandra,
+  amelia,
+  andresa,
+  angelica,
+  ariane,
+  barbara,
+  cassia,
+  catarina,
+  catia,
+  cintia,
+  clara,
+  clarice,
+  denise,
+  diana,
+  elaine,
+  elisa,
+  emilia,
+  ester,
+  eva,
+  geovana,
+  gloria,
+  heloisa,
+  iara,
+  iris,
+  janaina,
+  joana,
+  karen,
+  karina,
+  katia,
+  lais,
+  leila,
+  lilian,
+  livia,
+  luzia,
+  mariana,
+  melissa,
+  nadia,
+  pamela,
+  poliana,
+  rafaela,
+  rebeca,
+  samara,
+  sara,
+  silvia,
+  sonia,
+  talita,
+  tania,
+  veronica,
+  vitoria,
+  sueli,
+  ademir,
+  ailton,
+  alisson,
+  arnaldo,
+  augusto,
+  breno,
+  caetano,
+  cassio,
+  cleber,
+  cleiton,
+  diogo,
+  eder,
+  elias,
+  emerson,
+  ezequiel,
+  fabricio,
+  fernando,
+  frederico,
+  geraldo,
+  gerson,
+  gilmar,
+  giovanni,
+  hudson,
+  inacio,
+  ismael,
+  ivan,
+  jackson,
+  jair,
+  jefferson,
+  joel,
+  josue,
+  kleber,
+  levi,
+  maicon,
+  manoel,
+  marcio,
+  moises,
+  odair,
+  orlando,
+  osvaldo,
+  raul,
+  reinaldo,
+  robson,
+  rubens,
+  sebastiao,
+  silvio,
+  tadeu,
+  tulio,
+  valdir,
+  yuri,
 }
 
 export const lastAvatars: Record<string, AvatarDefinition> = {}
