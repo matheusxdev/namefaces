@@ -71,7 +71,9 @@ export function ensurePngSource(inputPath, privateDir = path.resolve('_private')
 
 /**
  * Force pure black/white so potrace keeps solid hair fills
- * instead of anti-aliased outline crumbs.
+ * instead of anti-aliased outline crumbs / face-neck speckles.
+ * Gray circles and soft gradients in the source become harsh B&W —
+ * prefer a clean white background in the GenerateImage PNG.
  * Accepts PNG or JPEG (JPEG is converted via Inkscape first).
  */
 export function thresholdPngToBw(inputPath, outputPath, cutoff = 140) {
@@ -615,6 +617,16 @@ function wrap(paths, role, transform) {
   return `<g transform="${transform}">${content}</g>`
 }
 
+/**
+ * Pipeline QC for known avatar QA failures (prompt still owns most of these):
+ * - white face disk / halo → isCircularSkinDisk + crown invasion
+ * - white/washed hair → light hair fills + skin covering hair
+ * - jaw black blobs → prefer compound evenodd holes (see splitBlackHairAndFeatures)
+ * - tall hat / prop silhouette → extreme hair aspect warning below
+ * - face speckles → many tiny feature crumbs warning below
+ * Prompt-only (regen PNG): black neck fill, solid black mouth, weird eyes,
+ * text/watermark, gray circle background.
+ */
 function qcCheck({ hair, skin, features, fullSilhouette }) {
   const errors = []
   const warnings = []
@@ -626,6 +638,18 @@ function qcCheck({ hair, skin, features, fullSilhouette }) {
   const hairForcedSkin = hair.filter((p) => isLight(p.fill)).length
   if (hairForcedSkin > 0 && hairForcedSkin >= hair.length) {
     errors.push('QC: todos os paths de hair estão com fill claro (cabelo vai ficar branco)')
+  }
+
+  // Speckle / grain often becomes dozens of tiny black crumbs as "features".
+  if (features.length >= 12) {
+    const areas = features.map((p) => pathArea(p)).sort((a, b) => a - b)
+    const median = areas[Math.floor(areas.length / 2)] || 0
+    const tiny = areas.filter((a) => a < median * 0.35 || a < 80).length
+    if (tiny >= 8) {
+      warnings.push(
+        `QC: muitas features minúsculas (${tiny}/${features.length}) — possível grain/speckle no PNG`,
+      )
+    }
   }
 
   if (hair.length && skin.length) {
@@ -658,6 +682,13 @@ function qcCheck({ hair, skin, features, fullSilhouette }) {
     const crownLimit = hairBounds.minY + hairBounds.height * 0.18
     if (skinBounds.minY < crownLimit && skinBounds.width >= hairBounds.width * 0.55 && !skinIsHairHole) {
       errors.push('QC: skin invade o topo do cabelo (halo branco / cabelo lavado)')
+    }
+
+    // Tall props (e.g. Paulo hat): silhouette much taller than wide.
+    if (hairBounds.width > 0 && hairBounds.height / hairBounds.width >= 1.65) {
+      warnings.push(
+        `QC: silhueta muito alta (h/w=${(hairBounds.height / hairBounds.width).toFixed(2)}) — possível chapéu/prop`,
+      )
     }
   }
 

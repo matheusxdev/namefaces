@@ -183,6 +183,32 @@ import { nathan } from './first/nathan'
 import { luan } from './first/luan'
 import { yago } from './first/yago'
 import { pietro } from './first/pietro'
+import { benedito } from './first/benedito'
+import { jocelio } from './first/jocelio'
+import { joaquim } from './first/joaquim'
+import { alessandro } from './first/alessandro'
+import { mirian } from './first/mirian'
+import { phillippe } from './first/phillippe'
+import { geovan } from './first/geovan'
+import { juan } from './first/juan'
+import { juvamelson } from './first/juvamelson'
+import { angelo } from './first/angelo'
+import { luciano } from './first/luciano'
+import { francyelle } from './first/francyelle'
+import { roselaine } from './first/roselaine'
+import { ivanildo } from './first/ivanildo'
+import { erik } from './first/erik'
+import { mike } from './first/mike'
+import { neto } from './first/neto'
+import { valquiria } from './first/valquiria'
+import { vilani } from './first/vilani'
+import { aureni } from './first/aureni'
+import { adelvan } from './first/adelvan'
+import { ian } from './first/ian'
+import { hiago } from './first/hiago'
+import { iago } from './first/iago'
+import { kerlen } from './first/kerlen'
+import { agnaldo } from './first/agnaldo'
 import { pool1 } from './pool/pool1'
 import { pool2 } from './pool/pool2'
 import { pool3 } from './pool/pool3'
@@ -373,6 +399,32 @@ export const firstAvatars: Record<string, AvatarDefinition> = {
   luan,
   yago,
   pietro,
+  benedito,
+  jocelio,
+  joaquim,
+  alessandro,
+  mirian,
+  phillippe,
+  geovan,
+  juan,
+  juvamelson,
+  angelo,
+  luciano,
+  francyelle,
+  roselaine,
+  ivanildo,
+  erik,
+  mike,
+  neto,
+  valquiria,
+  vilani,
+  aureni,
+  adelvan,
+  ian,
+  hiago,
+  iago,
+  kerlen,
+  agnaldo,
 }
 
 export const lastAvatars: Record<string, AvatarDefinition> = {}
