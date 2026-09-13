@@ -7,6 +7,7 @@ const avatarsDir = path.join(root, 'src', 'avatars')
 
 const REQUIRED_PARTS = ['background', 'hair', 'skin', 'features']
 const REQUIRED_TOKENS = ['{{background}}', '{{hair}}', '{{skin}}', '{{features}}']
+// Tool provenance only. Copyright metadata (namefaces / matheusxdev / LICENSE) is required below.
 const FORBIDDEN = [
   'Generator',
   'Inkscape',
@@ -18,6 +19,17 @@ const FORBIDDEN = [
   'Cursor',
   'ChatGPT',
   '<!--',
+]
+const COPYRIGHT_REQUIRED = [
+  '<metadata>',
+  '<desc>',
+  'data-namefaces="',
+  'namefaces/matheusxdev/2026',
+  'data-namefaces-mark="copyright"',
+  'Copyright (c) 2026 namefaces / matheusxdev',
+  'package LICENSE',
+  'overflow="hidden"',
+  'M120 120',
 ]
 
 async function walk(dir) {
@@ -104,6 +116,12 @@ if (!shell.includes('viewBox="0 0 80 80"')) {
 for (const word of FORBIDDEN) {
   if (shell.includes(word)) {
     errors.push(`src/avatars/shell.ts: forbidden content "${word}"`)
+  }
+}
+
+for (const mark of COPYRIGHT_REQUIRED) {
+  if (!shell.includes(mark)) {
+    errors.push(`src/avatars/shell.ts: missing copyright mark "${mark}"`)
   }
 }
 

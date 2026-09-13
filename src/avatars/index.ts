@@ -309,6 +309,96 @@ import { tadeu } from './first/tadeu'
 import { tulio } from './first/tulio'
 import { valdir } from './first/valdir'
 import { yuri } from './first/yuri'
+import { santiago } from './first/santiago'
+import { rosemary } from './first/rosemary'
+import { damares } from './first/damares'
+import { anildo } from './first/anildo'
+import { ires } from './first/ires'
+import { cicero } from './first/cicero'
+import { cerize } from './first/cerize'
+import { nerielton } from './first/nerielton'
+import { margareth } from './first/margareth'
+import { renan } from './first/renan'
+import { edmilson } from './first/edmilson'
+import { reginaldo } from './first/reginaldo'
+import { heleno } from './first/heleno'
+import { waldir } from './first/waldir'
+import { cecilia } from './first/cecilia'
+import { irene } from './first/irene'
+import { lidia } from './first/lidia'
+import { rita } from './first/rita'
+import { olivia } from './first/olivia'
+import { suzana } from './first/suzana'
+import { valeria } from './first/valeria'
+import { marlene } from './first/marlene'
+import { eunice } from './first/eunice'
+import { neide } from './first/neide'
+import { conceicao } from './first/conceicao'
+import { josiane } from './first/josiane'
+import { graziela } from './first/graziela'
+import { roseli } from './first/roseli'
+import { selma } from './first/selma'
+import { dalva } from './first/dalva'
+import { ivone } from './first/ivone'
+import { luiza } from './first/luiza'
+import { antonella } from './first/antonella'
+import { noemi } from './first/noemi'
+import { magda } from './first/magda'
+import { raimunda } from './first/raimunda'
+import { terezinha } from './first/terezinha'
+import { gislaine } from './first/gislaine'
+import { aurora } from './first/aurora'
+import { abel } from './first/abel'
+import { alvaro } from './first/alvaro'
+import { bento } from './first/bento'
+import { ciro } from './first/ciro'
+import { clovis } from './first/clovis'
+import { damiao } from './first/damiao'
+import { eliseu } from './first/eliseu'
+import { eurico } from './first/eurico'
+import { gael } from './first/gael'
+import { germano } from './first/germano'
+import { gilson } from './first/gilson'
+import { italo } from './first/italo'
+import { lauro } from './first/lauro'
+import { lorenzo } from './first/lorenzo'
+import { nilton } from './first/nilton'
+import { raimundo } from './first/raimundo'
+import { romario } from './first/romario'
+import { sandro } from './first/sandro'
+import { severino } from './first/severino'
+import { ulisses } from './first/ulisses'
+import { vicente } from './first/vicente'
+import { vanderlei } from './first/vanderlei'
+import { djalma } from './first/djalma'
+import { irineu } from './first/irineu'
+import { fabiano } from './first/fabiano'
+import { eliana } from './first/eliana'
+import { hugo } from './first/hugo'
+import { edna } from './first/edna'
+import { danilo } from './first/danilo'
+import { erica } from './first/erica'
+import { jonas } from './first/jonas'
+import { ines } from './first/ines'
+import { lourdes } from './first/lourdes'
+import { luciene } from './first/luciene'
+import { moacir } from './first/moacir'
+import { evandro } from './first/evandro'
+import { vilma } from './first/vilma'
+import { sidnei } from './first/sidnei'
+import { adilson } from './first/adilson'
+import { rosangela } from './first/rosangela'
+import { telma } from './first/telma'
+import { armando } from './first/armando'
+import { ligia } from './first/ligia'
+import { tomas } from './first/tomas'
+import { paloma } from './first/paloma'
+import { pietra } from './first/pietra'
+import { angelina } from './first/angelina'
+import { marlon } from './first/marlon'
+import { neuza } from './first/neuza'
+import { jairo } from './first/jairo'
+import { helder } from './first/helder'
 import { pool1 } from './pool/pool1'
 import { pool2 } from './pool/pool2'
 import { pool3 } from './pool/pool3'
@@ -625,6 +715,96 @@ export const firstAvatars: Record<string, AvatarDefinition> = {
   tulio,
   valdir,
   yuri,
+  santiago,
+  rosemary,
+  damares,
+  anildo,
+  ires,
+  cicero,
+  cerize,
+  nerielton,
+  margareth,
+  renan,
+  edmilson,
+  reginaldo,
+  heleno,
+  waldir,
+  cecilia,
+  irene,
+  lidia,
+  rita,
+  olivia,
+  suzana,
+  valeria,
+  marlene,
+  eunice,
+  neide,
+  conceicao,
+  josiane,
+  graziela,
+  roseli,
+  selma,
+  dalva,
+  ivone,
+  luiza,
+  antonella,
+  noemi,
+  magda,
+  raimunda,
+  terezinha,
+  gislaine,
+  aurora,
+  abel,
+  alvaro,
+  bento,
+  ciro,
+  clovis,
+  damiao,
+  eliseu,
+  eurico,
+  gael,
+  germano,
+  gilson,
+  italo,
+  lauro,
+  lorenzo,
+  nilton,
+  raimundo,
+  romario,
+  sandro,
+  severino,
+  ulisses,
+  vicente,
+  vanderlei,
+  djalma,
+  irineu,
+  fabiano,
+  eliana,
+  hugo,
+  edna,
+  danilo,
+  erica,
+  jonas,
+  ines,
+  lourdes,
+  luciene,
+  moacir,
+  evandro,
+  vilma,
+  sidnei,
+  adilson,
+  rosangela,
+  telma,
+  armando,
+  ligia,
+  tomas,
+  paloma,
+  pietra,
+  angelina,
+  marlon,
+  neuza,
+  jairo,
+  helder,
 }
 
 export const lastAvatars: Record<string, AvatarDefinition> = {}

@@ -1,3 +1,4 @@
+import { wrapAvatarSvg } from './avatars/shell'
 import { splitName } from './normalizeName'
 import { DEFAULT_COLORS } from './types'
 
@@ -70,13 +71,14 @@ export function createInitialsSvg(
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
 
-  return [
-    `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${safeLabel}">`,
-    `<circle data-part="background" cx="40" cy="40" r="40" fill="${style.background}"/>`,
-    `<text data-part="initials" x="40" y="42" text-anchor="middle" dominant-baseline="middle"`,
-    ` font-family="${style.font}" font-size="${fontSize}" font-weight="600" letter-spacing="-0.04em"`,
-    ` fill="${style.text}" stroke="${style.text}" stroke-width="1.6"`,
-    ` stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill">${safeLabel}</text>`,
-    '</svg>',
-  ].join('')
+  return wrapAvatarSvg(
+    safeLabel,
+    [
+      `<circle data-part="background" cx="40" cy="40" r="40" fill="${style.background}"/>`,
+      `<text data-part="initials" x="40" y="42" text-anchor="middle" dominant-baseline="middle"`,
+      ` font-family="${style.font}" font-size="${fontSize}" font-weight="600" letter-spacing="-0.04em"`,
+      ` fill="${style.text}" stroke="${style.text}" stroke-width="1.6"`,
+      ` stroke-linecap="round" stroke-linejoin="round" paint-order="stroke fill">${safeLabel}</text>`,
+    ].join(''),
+  )
 }
